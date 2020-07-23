@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
+import { parseISO } from 'date-fns';
+import { format } from 'date-fns-tz';
 
 import { Container, Header, Content, Register, Informations } from './styles';
 import logo from '../../assets/logo.png'
@@ -59,6 +61,7 @@ function Main() {
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Email</th>
+                <th>data e hora do registro</th>
               </tr>
             </thead>
             <tbody>
@@ -68,6 +71,9 @@ function Main() {
                     <td>{user.id}</td>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
+                    <td> {format(parseISO(user.createdAt), 'dd/MM/yyyy HH:mm', {
+                      timeZone: 'America/Sao_Paulo',
+                    })}</td>
                   </tr>
                 ))
               }
