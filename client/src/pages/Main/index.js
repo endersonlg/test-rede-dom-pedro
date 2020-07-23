@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import { parseISO } from 'date-fns';
@@ -14,6 +15,13 @@ function Main() {
   const [users, setUsers] = useState([]);
   const [reload, setReload] = useState(false);
   const history = useHistory();
+
+  const schema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, 'Mínimo 2 caracteres')
+      .required('Nome é obrigatório'),
+    email: Yup.string().email('Digite um e-mail válido').required('E-mail é obrigatório'),
+  });
 
   async function handleSubmit({ name, email }) {
     if (name === '' || email === '') {
@@ -47,7 +55,7 @@ function Main() {
       <Content>
         <Register>
           <strong>Cadastrar</strong>
-          <Form onSubmit={handleSubmit}>
+          <Form schema={schema} onSubmit={handleSubmit}>
             <Input name="name" placeholder="Nome" />
             <Input name="email" placeholder="Email" />
             <button type="submit">Confirmar</button>

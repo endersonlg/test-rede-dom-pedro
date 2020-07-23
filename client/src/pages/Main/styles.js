@@ -54,7 +54,11 @@ export const Register = styled.div`
       height: 44px;
       width:200px;
       padding: 0 15px;
-      margin: 0 0 10px;
+      margin: 10px 0 0px;
+    }
+
+    span{
+      color:#F00;
     }
 
     button{
